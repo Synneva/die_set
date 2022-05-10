@@ -1,5 +1,5 @@
 include <modules.scad>
-
+include <heavy_duty_die_set.scad>
 /**********************/
 /*** RENDER SETTINGS***/
 /**********************/
@@ -17,7 +17,7 @@ plate_thickness = .5;
 blank_length = 8;
 blank_width = 2;
 
-specimen_thickness = .1325; // measured, check with rob
+specimen_thickness = .125; 	// 1/16 for steel, 1/8 everything else
 sp_A = 2.25;				// specimen datasheet A value
 sp_R = .5;					// specimen radius sp_R
 reduced = .5;				// specimen reduced width w
@@ -71,6 +71,6 @@ module assembly(){
 /*** PART INSTANCES ***/
 /**********************/
 
-assembly();
+//assembly();
 //exploded_view();
 //color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
