@@ -40,6 +40,15 @@ die_dowel_spacing = [A/2, 1.25];
 punch_screw_spacing = [blank_length/2 - 1, blank_width/3];
 
 
+/**********************/
+/*** PART INSTANCES ***/
+/**********************/
+
+assembly();
+translate([0,10,0]) exploded_view();
+//color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
+
+
 
 module exploded_view(){
 	color("Aqua",1.0)			{translate([0,0, plate_thickness/2+2.5]) 	punch();}
@@ -56,11 +65,3 @@ module assembly(){
 								translate([0,0, plate_thickness/2+1.5]) die(cbore = false);
 
 }
-
-/**********************/
-/*** PART INSTANCES ***/
-/**********************/
-
-assembly();
-//exploded_view();
-//color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
