@@ -3,7 +3,7 @@
 /********************/
 
 // target specimen, nominal sizes
-module specimen(l = blank_length, w = blank_width, t = specimen_thickness, A = A, R = R, offset = 0){
+module specimen(l = blank_length, w = blank_width, t = specimen_thickness, A = sp_A, R = sp_R, offset = 0){
 	difference(){
 		cube([l, w, t], center = true);
 		die(R = R, t = 2*t, offset = offset);
@@ -11,7 +11,7 @@ module specimen(l = blank_length, w = blank_width, t = specimen_thickness, A = A
 }
 
 // top tool, no offset
-module die(A = A, R = R, t = plate_thickness, offset = 0, cbore = true){
+module die(A = sp_A, R = sp_R, t = plate_thickness, offset = 0, cbore = false, threaded = false){
 	radius = R + offset/2;
 	screw_spacing = die_screw_spacing;
 	dowel_spacing = die_dowel_spacing;
@@ -38,7 +38,7 @@ module die(A = A, R = R, t = plate_thickness, offset = 0, cbore = true){
 			// dowel holes ***update helper functions (won't update with dowel values yet)
 			hole_array(x = dowel_spacing[0], y = dowel_spacing[1], threaded = false, type = false);
 			//screw holes
-			hole_array(x = screw_spacing[0], y = screw_spacing[1], threaded = false, type = true);
+			hole_array(x = screw_spacing[0], y = screw_spacing[1], threaded = threaded, type = true);
 			// counterbores
 			if(cbore){
 				mirror([0,0,1]){
@@ -53,7 +53,7 @@ module die(A = A, R = R, t = plate_thickness, offset = 0, cbore = true){
 }
 
 // bottom tool, .006" clearance on cutout section
-module punch(cbore = true){
+module punch(cbore = false, threaded = false){
 	screw_spacing = punch_screw_spacing;
 	//dowel_spacing = punch_dowel_spacing;
 	difference(){
@@ -64,8 +64,8 @@ module punch(cbore = true){
 			hole(type = false);
 			translate([ screw_spacing[0], 0, 0])	hole(type = false);
 			translate([-screw_spacing[0], 0, 0])	hole(type = false);
-			// screw holes (clearance)
-			hole_array(x = screw_spacing[0], y = screw_spacing[1], z = 0, threaded = false, type = true);
+			// screw holes
+			hole_array(x = screw_spacing[0], y = screw_spacing[1], z = 0, threaded = threaded, type = true);
 			// counterbores
 			if(cbore){
 				translate([ screw_spacing[0],  screw_spacing[1], 0.1])	counterbore();
@@ -80,7 +80,7 @@ module punch(cbore = true){
 // baseplate
 module base(l = base_length, w = base_width, t = plate_thickness){
 	difference(){
-		cube([l,w,t], center = true);
+		color("DarkRed", 1.0) cube([l,w,t], center = true);
 		union(){
 			// center hole
 			hole(type = false);
@@ -93,8 +93,8 @@ module base(l = base_length, w = base_width, t = plate_thickness){
 			// punch alignment holes (copied from punch module)
 			translate([ punch_screw_spacing[0], 0, 0])	hole(type = false);
 			translate([-punch_screw_spacing[0], 0, 0])	hole(type = false);
-			// punch screw holes, threaded (copied+modified)
-			hole_array(x = punch_screw_spacing[0], y = punch_screw_spacing[1], threaded = true, type = true);
+			// punch screw holes, clearance
+			hole_array(x = punch_screw_spacing[0], y = punch_screw_spacing[1], threaded = false, type = true);
 			
 			// die alignment holes
 			hole_array(x = die_dowel_spacing[0], y = die_dowel_spacing[1], threaded = false, type = false);
@@ -107,7 +107,7 @@ module base(l = base_length, w = base_width, t = plate_thickness){
 		translate([-(blank_length/2 - blank_width/2), blank_width/2 + dowel_radius, 1.5])	dowel_pin(dowel_length = 3.5);
 		translate([ (blank_length/2 - blank_width/2), blank_width/2 + dowel_radius, 1.5])	dowel_pin(dowel_length = 3.5);
 		// die guides
-		scale([1,1,3]){hole_array(x = die_dowel_spacing[0], y = die_dowel_spacing[1], z = 0.5, threaded = false, type = false);}
+		color("Violet", 1.0) scale([1,1,3]){hole_array(x = die_dowel_spacing[0], y = die_dowel_spacing[1], z = 0.5, threaded = false, type = false);}
 		// punch locators
 		translate([0,0,.5])	dowel_pin(dowel_length = 1.5);
 		translate([ punch_screw_spacing[0], 0, .5])	dowel_pin(dowel_length = 1.5);
@@ -131,7 +131,7 @@ module counterbore(){
 }
 
 module dowel_pin(dowel_length){
-	cylinder(h = dowel_length, r = dowel_radius, center = true);	
+	color("Violet") cylinder(h = dowel_length, r = dowel_radius, center = true);	
 }
 
 module hole_array(x,y,z=0,threaded,type){
