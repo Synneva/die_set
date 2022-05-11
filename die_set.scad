@@ -45,7 +45,7 @@ punch_screw_spacing = [blank_length-2, 2*blank_width/3];
 /*** ASSEMBLY VIEWS ***/
 /**********************/
 
-translate([0,(sq-B)/2,-J]) heavy_set();
+//translate([0,(sq-B)/2,-J]) heavy_set();
 assembly();
 //translate([0,10,0]) exploded_view();
 //color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
