@@ -44,8 +44,8 @@ punch_screw_spacing = [blank_length/2 - 1, blank_width/3];
 /*** ASSEMBLY VIEWS ***/
 /**********************/
 
-assembly();
-translate([0,10,0]) exploded_view();
+//assembly();
+//translate([0,10,0]) exploded_view();
 //color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
 
 
@@ -78,6 +78,6 @@ module assembly(){
 /*** PART INSTANCES ***/
 /**********************/
 
-//assembly();
+assembly();
 //exploded_view();
 //color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
