@@ -1,4 +1,5 @@
-include <modules.scad>
+include <features.scad>
+include <parts.scad>
 include <heavy_duty_die_set.scad>
 /**********************/
 /*** RENDER SETTINGS***/
@@ -35,9 +36,9 @@ cbore_dia = .5;
 cbore_depth = .25;
 
 // hole spacings
-die_screw_spacing = [sp_A/2-.5, 1.25];
-die_dowel_spacing = [sp_A/2, 1.25];
-punch_screw_spacing = [blank_length/2 - 1, blank_width/3];
+die_screw_spacing = [sp_A-1, 2.5];
+die_dowel_spacing = [sp_A, 2.5];
+punch_screw_spacing = [blank_length-2, 2*blank_width/3];
 
 
 /**********************/
