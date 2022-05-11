@@ -12,7 +12,7 @@ show_dowels = true;			// toggle dowels on/off
 /*** MODEL PARAMETERS ***/
 /************************/
 base_length = 10;
-base_width = 6;
+base_width = B;
 plate_thickness = .5;
 blank_length = 8;
 blank_width = 2;
@@ -44,12 +44,10 @@ punch_screw_spacing = [blank_length/2 - 1, blank_width/3];
 /*** ASSEMBLY VIEWS ***/
 /**********************/
 
-//assembly();
+translate([0,(sq-B)/2,-J]) heavy_set();
+assembly();
 //translate([0,10,0]) exploded_view();
 //color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
-
-
-
 
 module exploded_view(){
 
@@ -73,11 +71,3 @@ module assembly(){
 	color("Grey", 1.0)			{translate([0,0, plate_thickness/2+1.5]) die();}
 
 }
-
-/**********************/
-/*** PART INSTANCES ***/
-/**********************/
-
-assembly();
-//exploded_view();
-//color("OrangeRed",1.0)		{translate([0,0,.6])					specimen();}
