@@ -27,7 +27,8 @@ module die(A = sp_A, R = sp_R, t = plate_thickness, offset = 0, cbore = false, t
 			translate([-(A+2*radius)/2,-reduced/2-R,-t/2])	
 										mirror([0,1,0])		cube([A+2*radius, 1.25, t]);
 			// radii
-			array_four(x_spacing = A, y_spacing = reduced + 2*R) cylinder(h = t, r = radius, center = true);			
+			array_four(x_spacing = A, y_spacing = reduced + 2*R)
+				cylinder(h = t, r = radius, center = true);			
 		}
 		union(){
 			// dowel holes
